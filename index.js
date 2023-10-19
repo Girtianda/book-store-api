@@ -10,38 +10,19 @@ const express = require('express')
         { id: 4, name: "Agus", alamat: "Subang" },
     ];
 
-    app.get("/Girr", (req, res) => {
-        const data = data_users;
+    app.get("/Girr/:id", (req, res) => {
+        // get data dari parameter
+        let id = parseInt(req.params.id);
 
-        let result = {
+        // get data dari database
+        let result;
+        const user = data_users.find((user) => user.id === id);
+        if (user) {
+            result = {
             status: 200,
-            data: data,
-        };
-
+            data: user,
+            };
+        }
         res.json(result);
     });
-    app.get("/Girr", (req, res) => {
-        res.json({
-            message: "Hallo ini Girtianda",
-        });
-    });
-
-    app.post("/Girr", (req, res) => {
-        res.json({
-            message: "Hallo ini response Gian",
-        });
-    });
-
-    app.put("/Girr", (req, res) => {
-        res.json({
-            message: "Pengen mie ayam gratis",
-        });
-    });
-
-    app.delete("/Girr", (req, res) => {
-        res.json({
-            message: "mie ayam cimahi ngeunah pisan",
-        });
-    });
-
     app.listen(port,() => console.log(`Server running on port ${port}`))
